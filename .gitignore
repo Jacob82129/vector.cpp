@@ -1,32 +1,76 @@
-# Prerequisites
-*.d
+/* Jacob Navarro
+* CSE 330
+* LAB 1 - Warm-Up Vector
+*/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+#include <iostream>
+#include <vector>
+#include <cassert>
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+using namespace std;
 
-# Fortran module files
-*.mod
-*.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+// returns the median element
+int nosort_median(vector<int> nums)
+{
+    assert(nums.size()/2 != 0); // makes sure that size is odd
+    int half = nums.size()/2;
 
-# Executables
-*.exe
-*.out
-*.app
+    for(int i=0; i < nums.size(); i++)
+    {
+        int k = 0;// k is a pointer for the vector
+
+        for(int j=0; j < nums.size(); j++)
+        {
+            if(nums[j] < nums[i]) // checks each element for median value
+              k++;
+        }
+
+        if(k == half)
+          return nums[i]; // returns median
+    }
+  return -1;
+}
+
+void rec_print(int curr, vector<int> vec) // failed attempt
+{
+    if(curr == vec.size())
+      return;
+    cout << vec[curr] << " ";
+    rec_print(curr+1, vec);
+
+}
+
+// main program starts here
+int main()
+{
+    vector<int> odd; // initializing a vector named odd
+
+    int how_many;
+
+    cout << "How many elements are there? (odd): ";
+    cin >> how_many;
+
+    int next;
+    for(int i=1; i <= how_many; i++) // uses user input to make a vector
+    {
+        cout << "Next number: " << endl;
+        cin >> next;
+        odd.push_back(next);
+    }
+
+    int med = nosort_median(odd); // calls on the nosort function
+    cout << endl << endl;
+
+    for(int i=0; i < odd.size(); i++) // displays the vector
+    {
+        cout << odd[i] << endl;
+    }
+
+    cout << "The median element is " << med << endl << endl;
+
+    // failed attempt rec_print(odd.begin(), odd);
+
+    return 0;
+}
